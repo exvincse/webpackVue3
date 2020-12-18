@@ -7,32 +7,29 @@ const CopyPlugin = require("copy-webpack-plugin");
 const merge = require("webpack-merge");
 const common = require("../webpack.config");
 
-function resolve(dir) {
-    return path.join(__dirname, dir);
-}
-let app = merge(common,{
+let main1 = merge(common[1], {
     resolve: {
         extensions: [".js", ".vue"],
         alias: {
-            "@": resolve("src"),
-            'f01': resolve("src/component/App/f01"),
-            'f02': resolve("src/component/App/f02")
+            "@": path.resolve("src"),
+            'f01': path.resolve("src/main1/component/f01"),
+            'f02': path.resolve("src/main1/component/f02")
         }
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: path.resolve(`dist/index.html`),
-            template: path.resolve('src/index.html')
+            filename: path.resolve('dist/index1.html'),
+            template: path.resolve('src/main1/index1.html')
         }),
         new CopyPlugin([{
-            from: path.resolve('src/content/App/img'),
-            to: `./${common.name}/img`
+            from: path.resolve('src/main1/content/img'),
+            to: `./${common[1].name}/img`
         }]),
         new CopyPlugin([{
-            from: path.resolve('src/content/App/plugins'),
-            to: `./${common.name}/plugins`
+            from: path.resolve('src/main1/content/plugins'),
+            to: `./${common[1].name}/plugins`
         }])
     ]
 })
 
-module.exports = app;
+module.exports = main1;

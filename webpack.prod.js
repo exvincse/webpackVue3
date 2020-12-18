@@ -1,8 +1,8 @@
 const merge = require("webpack-merge");
-const common = require("./webpack.config");
-const CopyPlugin = require("copy-webpack-plugin");
-const app = require("./webpackConfig/app");
-module.exports = merge(app, {
+const app = require("./webpackConfig/main");
+const app1 = require("./webpackConfig/main1");
+
+module.exports = [app, app1].map(item => merge(item, {
     mode: "production",
     module: {
         rules: [
@@ -10,23 +10,30 @@ module.exports = merge(app, {
             {
                 test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif)$/,
                 use: [{
-                        loader: "url-loader",
+                        // loader: "url-loader",
+                        // options: {
+                        //     limit: 10000, //bytes
+                        //     esModule: false,
+                        //     name: "[name].[ext]",
+                        //     fallback: {
+                        //         loader: "file-loader",
+                        //         options: {
+                        //             name: "[name].[ext]",
+                        //             esModule: false,
+                        //             publicPath: "./img",
+                        //             outputPath: "./img"
+                        //         }
+                        //     }
+                        // }
+                        loader: "file-loader",
                         options: {
-                            limit: 10000, //bytes
-                            esModule: false,
+                            emitFile: false,
                             name: "[name].[ext]",
-                            fallback: {
-                                loader: "file-loader",
-                                options: {
-                                    name: "[name].[ext]",
-                                    esModule: false,
-                                    publicPath: "./img",
-                                    outputPath: "./img"
-                                }
-                            }
+                            esModule: false,
+                            publicPath: `../../${item.name}/img`
                         }
                     },
-                    'image-webpack-loader'
+                    // 'image-webpack-loader'
                 ]
             }
         ]
@@ -36,4 +43,4 @@ module.exports = merge(app, {
             vue: 'vue/dist/vue.esm-browser.prod.js'
         }
     }
-});
+}))

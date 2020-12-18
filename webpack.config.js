@@ -14,7 +14,7 @@ function mutiple(name) {
         name: name,
         entry: {
             babel: "@babel/polyfill",
-            [name]: `./src/${name}.js`
+            [name]: path.resolve(__dirname, `src/${name}/${name}.js`)
         },
         devServer: {
             contentBase: path.join(__dirname, "dist"),
@@ -29,19 +29,21 @@ function mutiple(name) {
                 aggregateTimeout: 300
             },
             historyApiFallback: {
-                index: `/index.html`
+                index: './src/main/index.html',
+                index1: './src/main1/index1.html'
             }
         },
         output: {
             path: path.resolve(__dirname, './dist'),
             publicPath: '/',
-            filename: '[name].[contenthash].js'
+            filename: `${name}/js/[name].[hash].js`
         },
         module: {
             rules: [{
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    process.env.NODE_ENV === "production" ?
+                    MiniCssExtractPlugin.loader : "style-loader",
                     "css-loader", // translates CSS into CommonJS
                     "postcss-loader",
                     "sass-loader" // compiles Sass to CSS
@@ -49,7 +51,7 @@ function mutiple(name) {
             },
             {
                 test: /\.css$/,
-                use: ["vue-style-loader", "css-loader"]
+                use: ["style-loader", "css-loader"]
             },
             {
                 test: /\.vue$/,
@@ -62,9 +64,11 @@ function mutiple(name) {
             }]
         },
         plugins: [
-            new CleanWebpackPlugin(),
             new VueLoaderPlugin(),
-            // 以下是解法。原因:目前使用 vue 3.x 会报错。（没有试过Vue新提出的vite ）
+            new MiniCssExtractPlugin({
+                filename: `${name}/css/[name].[hash].css`
+            }),
+            // 以下是解法。原因:目前使用vue3會報錯
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: JSON.stringify(true),
                 __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
@@ -73,23 +77,34 @@ function mutiple(name) {
     }
 }
 
-let result = mutiple('main');
-if (process.env.NODE_ENV === "production") {
-    // 生產版本設定
-    result.output.filename = `${result.name}/js/[name].[contenthash].js`;
-    result.plugins.push(
-        new MiniCssExtractPlugin({
-            filename: `${result.name}/css/[name].[contenthash].css`
-        })
-    );
-} else {
-    //開發版本設定
-    result.output.filename = `${result.name}/js/[name].js`;
-    result.plugins.push(
-        new MiniCssExtractPlugin({
-            filename: `${result.name}/[name].css`
-        })
-    );
-}
+module.exports = ['main', 'main1'].map(item => {
+    let result = mutiple(item);
+    if (item === 'main') {
+        result.plugins.push(
+            new CleanWebpackPlugin()
+        )
+    }
+    return result;
+});
 
-module.exports = result;
+// module.exports = ['main', 'main1'].map(item => {
+//     let result = mutiple(item);
+//     if (process.env.NODE_ENV === "production") {
+//         // 生產版本設定
+//         result.output.filename = `${result.name}/js/[name].[contenthash].js`;
+//         result.plugins.push(
+//             new MiniCssExtractPlugin({
+//                 filename: `${result.name}/css/[name].[contenthash].css`
+//             })
+//         );
+//     } else {
+//         // 開發版本設定
+//         result.output.filename = `${result.name}/js/[name].js`;
+//         result.plugins.push(
+//             new MiniCssExtractPlugin({
+//                 filename: `${result.name}/css/[name].css`
+//             })
+//         );
+//     }
+//     return result;
+// });

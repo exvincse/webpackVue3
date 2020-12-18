@@ -9,7 +9,7 @@
     </div>
     <button @click="fileView()">save</button> -->
     <div class="bg"></div>
-    <img src="./content/App/img/a.png" alt="" srcset="">
+    <img src="./content/img/a.png" alt="" srcset="">
     <button @click="changeShllow()">changeShllow</button>
     <div>
         {{ statea }}

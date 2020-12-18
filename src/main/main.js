@@ -1,8 +1,8 @@
 import { createApp } from "vue";
-import router from "./router/App/App";
-import { store } from "./store/App/index";
-import "./content/App/scss/all.scss";
-import vuePlugin from "./content/App/js/vuePlugin";
+import router from "./router";
+import { store } from "./store/index";
+import "./content/scss/all.scss";
+import vuePlugin from "./content/js/vuePlugin";
 import App from "./App.vue";
 
 const app = createApp(App);

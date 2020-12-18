@@ -1,7 +1,7 @@
 <template>
     <router-link :to="{ name: 'index' }" class="c-link c-link_block c-link--og">index</router-link>
     <router-link :to="{ name: 'about' }" class="c-link c-link_block c-link--og">about</router-link>
-    <a href="/index.html" class="c-link c-link_block c-link--og">index1</a>
+    <a href="/index.html" class="c-link c-link_block c-link--og">index</a>
     <router-view/>
 </template>
 <script>
