@@ -8,10 +8,10 @@
         <input type="file" :id="i" :ref="el => { divs[i] = el }">
     </div>
     <button @click="fileView()">save</button> -->
-    <div class="bg"></div>
+    <!-- <div class="bg"></div>
     <img src="./content/img/a.png" alt="" srcset="">
-    <button @click="changeShllow()">changeShllow</button>
-    <div>
+    <button @click="changeShllow()">changeShllow</button> -->
+    <!-- <div>
         {{ statea }}
     </div>
     <div>
@@ -22,13 +22,24 @@
     </div>
     <div>
         {{ statea.gf.f.s }}
+    </div> -->
+    <div class="l-link">
+        <router-link :to="{ name: 'index' }" class="c-link c-link_block c-link--og">index</router-link>
+        <router-link :to="{ name: 'about' }" class="c-link c-link_block c-link--og">about</router-link>
+        <!-- <a href="/index1.html" class="c-link c-link_block c-link--og">index1</a> -->
     </div>
-    <router-link :to="{ name: 'index' }" class="c-link c-link_block c-link--og">index</router-link>
-    <router-link :to="{ name: 'about' }" class="c-link c-link_block c-link--og">about</router-link>
-    <a href="/index1.html" class="c-link c-link_block c-link--og">index1</a>
-    <router-view/>
+    <router-view></router-view>
+    <!-- <Suspense>
+        <template #default>
+            <index />
+        </template>
+        <template #fallback>
+            <span>I'm a loading screen, I'm waiting the view to be ready!</span>
+        </template>
+    </Suspense> -->
 </template>
 <script>
+    import index from 'f01/index.vue';
     import {
         defineAsyncComponent,
         ref,
@@ -47,11 +58,13 @@
         onDeactivated,
         onErrorCaptured,
         watch,
-        nextTick
+        nextTick,
     } from "vue";
     import { useStore } from "vuex";
     export default {
-        components: {},
+        components: {
+            index
+        },
         setup() {
             const store = useStore();
             const state = reactive({
@@ -72,17 +85,6 @@
                     }
                 }
             });
-
-            store.dispatch('f01/storeA');
-            onBeforeUpdate(() => {
-                divs.value = []
-            })
-            onMounted(() => {
-                methods.addNumber();
-                nextTick(() => {
-                    methods.addNumber();
-                })
-            })
             let methods = {
                 fileView() {
                     let reader = new FileReader();
@@ -95,7 +97,6 @@
                 },
                 addNumber() {
                     state.id++;
-                    console.log(state.id);
                 },
                 addPos() {
                     pos.x++;
@@ -106,6 +107,18 @@
                     triggerRef(statea)
                 }
             }
+            onMounted(() => {
+                console.log('App onMounted')
+            })
+            onBeforeMount(() => {
+                console.log('App onBeforeMount')
+            })
+            onBeforeUpdate(() => {
+                divs.value = [];
+            })
+            onErrorCaptured((error) => {
+                console.log(error)
+            })
             return {
                 addNumber: methods.addNumber,
                 state,

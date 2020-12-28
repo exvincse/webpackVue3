@@ -1,3 +1,5 @@
+// 抽出css變成獨立檔案
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const merge = require("webpack-merge");
 const app = require("./webpackConfig/main");
 const app1 = require("./webpackConfig/main1");
@@ -35,6 +37,15 @@ module.exports = [app, app1].map(item => merge(item, {
                     },
                     // 'image-webpack-loader'
                 ]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader", // translates CSS into CommonJS
+                    "postcss-loader",
+                    "sass-loader" // compiles Sass to CSS
+                ]
             }
         ]
     },
@@ -42,5 +53,10 @@ module.exports = [app, app1].map(item => merge(item, {
         alias: {
             vue: 'vue/dist/vue.esm-browser.prod.js'
         }
-    }
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: `${item.name}/css/[name].[hash].css`
+        }),
+    ]
 }))

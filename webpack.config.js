@@ -1,13 +1,13 @@
 const webpack = require('webpack');
 // node.js path路由
 const path = require("path");
-// 抽出css變成獨立檔案
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // npm run start ,build清除dist資料夾
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // 編譯出Vue template script css
 const { VueLoaderPlugin } = require("vue-loader");
 require("@babel/polyfill");
+
+let entryNameAry = ['main', 'main1'];
 
 function mutiple(name) {
     return {
@@ -39,35 +39,24 @@ function mutiple(name) {
             filename: `${name}/js/[name].[hash].js`
         },
         module: {
-            rules: [{
-                test: /\.scss$/,
-                use: [
-                    process.env.NODE_ENV === "production" ?
-                    MiniCssExtractPlugin.loader : "style-loader",
-                    "css-loader", // translates CSS into CommonJS
-                    "postcss-loader",
-                    "sass-loader" // compiles Sass to CSS
-                ]
-            },
-            {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"]
-            },
-            {
-                test: /\.vue$/,
-                loader: "vue-loader"
-            },
-            {
-                test: /\.js$/,
-                loader: "babel-loader",
-                exclude: /node_modules/
-            }]
+            rules: [
+                {
+                    test: /\.css$/,
+                    use: ["style-loader", "css-loader"]
+                },
+                {
+                    test: /\.vue$/,
+                    loader: "vue-loader"
+                },
+                {
+                    test: /\.js$/,
+                    loader: "babel-loader",
+                    exclude: /node_modules/
+                }
+            ]
         },
         plugins: [
             new VueLoaderPlugin(),
-            new MiniCssExtractPlugin({
-                filename: `${name}/css/[name].[hash].css`
-            }),
             // 以下是解法。原因:目前使用vue3會報錯
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: JSON.stringify(true),
@@ -77,7 +66,7 @@ function mutiple(name) {
     }
 }
 
-module.exports = ['main', 'main1'].map(item => {
+module.exports = entryNameAry.map(item => {
     let result = mutiple(item);
     if (item === 'main') {
         result.plugins.push(

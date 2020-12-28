@@ -1,5 +1,5 @@
 'use strict';
-import axios from 'axios';
+import api from '../../repository/index';
 const state = {
     data: []
 }
@@ -14,8 +14,7 @@ const mutations = {
 
 const actions = {
     async storeA({ commit }, params) {
-        const url = "https://jsonplaceholder.typicode.com/users";
-        let res = await axios.get(url);
+        let res = await api.f01.getData(params);
         commit('setStoreA', res.data);
         return res.data;
     },

@@ -43,7 +43,16 @@ const devWebpackConfig = [app, app1].map(item => merge(item, {
                     }
                 ]
                 
-            }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    "css-loader", // translates CSS into CommonJS
+                    "postcss-loader",
+                    "sass-loader" // compiles Sass to CSS
+                ]
+            },
         ]
     },
     resolve: {
