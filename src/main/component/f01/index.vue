@@ -1,30 +1,18 @@
 <template>
     <div>App: f01/index</div>
-    <!-- <div>{{  }}</div> -->
+    <div>{{ dataResource.ary[0] }}</div>
 </template>
 <script>
     import { onMounted, onBeforeMount, reactive } from "vue";
     import { useStore } from 'vuex';
     export default {
-        components: {
-        },
-        setup() {
-            const obj = reactive({
-                a: 123,
-                b: 456
-            })
-            // const store = useStore();
-            // const state = reactive({});
-            // onBeforeMount(() => {
-            //     console.log('index onBeforeMount');
-            // })
-            // onMounted(() => {
-            //     console.log('index onMounted');
-            // })
-            // let res = await store.dispatch('f01/storeA');
-            // console.log(res);
+        components: {},
+        async setup() {
+            const store = useStore();
+            const dataResource = reactive({});
+            dataResource.ary = await store.dispatch('f02/jsonPosts');
             return {
-                obj
+                dataResource
             }
         }
     };

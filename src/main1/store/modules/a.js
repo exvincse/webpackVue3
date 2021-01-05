@@ -14,6 +14,7 @@ const mutations = {
 
 const actions = {
     async storeA({ commit }, params) {
+        console.log(123)
         const url = "https://jsonplaceholder.typicode.com/users";
         let res = await axios.get(url);
         commit('setStoreA', res.data);

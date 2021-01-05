@@ -1,4 +1,4 @@
 let f02 = {
-    getdata: 'https://jsonplaceholder.typicode.com/users'
+    jsonPosts: 'https://jsonplaceholder.typicode.com/posts'
 }
 export default f02;

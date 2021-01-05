@@ -1,21 +1,21 @@
 'use strict';
 import api from '../../repository/index';
 const state = {
-    jsonUsersData: []
+    jsonPostsData: []
 }
 
 const getters = {}
 
 const mutations = {
-    setJsonUsers(state, payload) {
+    setJsonPosts(state, payload) {
         state.data = payload || [];
     }
 }
 
 const actions = {
-    async jsonUsers({ commit }, params) {
-        let res = await api.f01.jsonUsers(params);
-        commit('setJsonUsers', res.data);
+    async jsonPosts({ commit }, params) {
+        let res = await api.f02.jsonPosts(params);
+        commit('setJsonPosts', res.data);
         return res.data;
     },
 }
