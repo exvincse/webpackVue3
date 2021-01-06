@@ -18,7 +18,6 @@
 <script>
 import { onMounted, reactive } from 'vue';
 import { useStore } from 'vuex';
-import axios from 'axios'
 export default {
     async setup() {
         const dataResource = reactive({});

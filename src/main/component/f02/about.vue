@@ -1,7 +1,7 @@
 <template>
   <Suspense>
     <template #default>
-      <div v-for="item in articleList.ary" :key="item.id">
+      <div v-for="item in dataResource.ary" :key="item.id">
         <article>
           <h2>{{ item.title }}</h2>
           <p>{{ item.body }}</p>
@@ -15,21 +15,15 @@
 </template>
 <script>
 import { onMounted, reactive } from 'vue';
-import axios from 'axios'
+import { useStore } from 'vuex';
 export default {
+    components: {},
     async setup() {
-        onMounted(() => {
-            console.log(123)
-        })
-        const articleList = reactive({});
-        articleList.ary = await axios
-            .get('https://jsonplaceholder.typicode.com/posts')
-            .then(response => {
-                console.log(response)
-                return response.data
-        })
+        const store = useStore();
+        const dataResource = reactive({});
+        dataResource.ary = await store.dispatch('f02/jsonPosts');
         return {
-            articleList
+            dataResource
         }
     }
 }

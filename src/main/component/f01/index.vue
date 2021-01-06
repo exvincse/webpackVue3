@@ -1,5 +1,6 @@
 <template>
     <div>App: f01/index</div>
+    <a href="/index1.html">index1.html</a>
     <div>{{ dataResource.ary[0] }}</div>
 </template>
 <script>
@@ -10,7 +11,14 @@
         async setup() {
             const store = useStore();
             const dataResource = reactive({});
-            dataResource.ary = await store.dispatch('f02/jsonPosts');
+            let params = {
+                body: {
+                    title: 'foo',
+                    body: 'bar',
+                    userId: 1,
+                }
+            }
+            dataResource.ary = await store.dispatch('f02/jsonPosts', params);
             return {
                 dataResource
             }

@@ -11,23 +11,24 @@ let Api = {
     setToken: function (name) {
         this.token = name;
     },
-    config: () => {
+    config: (config = {}) => {
         let headers = {};
-        let config = {}
-        headers.token = Api.token;
+        headers['X-CSRF-TOKEN'] = Api.token;
         if (config.hasOwnProperty("contentType")) {
-            headers["contentType"] = config.contentType;
+            headers["content-Type"] = config.contentType;
         }
 
         if (config.hasOwnProperty("responseType")) {
-            headers["responseType"] = config.responseType;
+            headers["response-Type"] = config.responseType;
         } else {
-            headers["responseType"] = "json";
+            headers["response-Type"] = "json";
         }
         return headers;
     },
     post: (url, params) => {
-        return instance.post(url, params).then((res) => {
+        let headers = Api.config();
+        console.log(headers);
+        return instance.post(url, params, { headers }).then((res) => {
             return res;
         }).catch((err) => {
             console.log(err);
@@ -35,7 +36,7 @@ let Api = {
     },
     postFile: (url, params) => {
         let setting = Api.config({ contentType: "multipart/form-data" });
-        return instance.post(url, params, setting).then((res) => {
+        return instance.post(url, params, { setting }).then((res) => {
             return res;
         }).catch((err) => {
             console.log(err);
@@ -48,9 +49,10 @@ let Api = {
             console.log(err);
         });
     },
-    get: (url) => {
+    get: (url, params) => {
         console.log(Api.config())
-        return instance.get(url).then(res => {
+        return instance.get(url, params).then(res => {
+            
             return res;
         }).catch(err => {
             return err;

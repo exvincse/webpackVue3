@@ -1,6 +1,8 @@
 'use strict';
-import f01 from '@/src/api/app/index';
-import axios from 'axios';
+import api from '../../../commonJs/apiHandler';
+import url from '../../api/index';
 export default {
-    
+    jsonUsers(params) {
+        return api.get(url.f01.jsonUsers, params);
+    }
 }
