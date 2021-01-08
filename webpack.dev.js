@@ -42,7 +42,6 @@ const devWebpackConfig = [app, app1].map(item => merge(item, {
                         }
                     }
                 ]
-                
             },
             {
                 test: /\.scss$/,
@@ -54,6 +53,17 @@ const devWebpackConfig = [app, app1].map(item => merge(item, {
                 ]
             },
         ]
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
+                }
+            }
+        }
     },
     resolve: {
         alias: {

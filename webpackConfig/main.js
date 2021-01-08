@@ -6,30 +6,31 @@ const CopyPlugin = require("copy-webpack-plugin");
 // 合併webpack檔案
 const merge = require("webpack-merge");
 const common = require("../webpack.config");
+let index = common.map(x => x.name).indexOf('main');
 
-let main = merge(common[0], {
+let config = merge(common[index], {
     resolve: {
         extensions: [".js", ".vue"],
         alias: {
             "@": path.resolve("src"),
-            'f01': path.resolve("src/main/component/f01"),
-            'f02': path.resolve("src/main/component/f02")
+            'f01': path.resolve(`src/${common[index].name}/component/f01`),
+            'f02': path.resolve(`src/${common[index].name}/component/f02`)
         }
     },
     plugins: [
         new HtmlWebpackPlugin({
             filename: path.resolve('dist/index.html'),
-            template: path.resolve('src/main/index.html')
+            template: path.resolve(`src/${common[index].name}/index.html`)
         }),
         new CopyPlugin([{
-            from: path.resolve('src/main/content/img'),
-            to: `./${common[0].name}/img`
+            from: path.resolve(`src/${common[index].name}/content/img`),
+            to: `./${common[index].name}/img`
         }]),
         new CopyPlugin([{
-            from: path.resolve('src/main/content/plugins'),
-            to: `./${common[0].name}/plugins`
+            from: path.resolve(`src/${common[index].name}/content/plugins`),
+            to: `./${common[index].name}/plugins`
         }])
     ]
 })
 
-module.exports = main;
+module.exports = config;

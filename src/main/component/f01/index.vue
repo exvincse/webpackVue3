@@ -1,6 +1,6 @@
 <template>
     <div>App: f01/index</div>
-    <a href="/index1.html">index1.html</a>
+    <a href="/about.html">about.html</a>
     <div>{{ dataResource.ary[0] }}</div>
 </template>
 <script>

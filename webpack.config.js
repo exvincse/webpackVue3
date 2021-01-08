@@ -30,13 +30,12 @@ function mutiple(name) {
             },
             historyApiFallback: {
                 index: './src/main/index.html',
-                index1: './src/main1/index1.html'
+                about: './src/main1/about.html'
             }
         },
         output: {
             path: path.resolve(__dirname, './dist'),
-            publicPath: '/',
-            filename: `${name}/js/[name].[hash].js`
+            filename: `./${name}/js/[name].[hash].js`
         },
         module: {
             rules: [

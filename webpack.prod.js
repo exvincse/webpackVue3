@@ -49,14 +49,25 @@ module.exports = [app, app1].map(item => merge(item, {
             }
         ]
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
+                }
+            }
+        }
+    },
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.runtime.esm-browser.prod.js'
+            vue: 'vue/dist/vue.esm-browser.prod.js'
         }
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: `${item.name}/css/[name].[hash].css`
+            filename: `./${item.name}/css/[name].[hash].css`
         }),
     ]
 }))

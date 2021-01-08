@@ -18,16 +18,15 @@ let Api = {
             headers["content-Type"] = config.contentType;
         }
 
-        if (config.hasOwnProperty("responseType")) {
-            headers["response-Type"] = config.responseType;
-        } else {
-            headers["response-Type"] = "json";
-        }
+        // if (config.hasOwnProperty("responseType")) {
+        //     headers["response-Type"] = config.responseType;
+        // } else {
+        //     headers["response-Type"] = "json";
+        // }
         return headers;
     },
     post: (url, params) => {
         let headers = Api.config();
-        console.log(headers);
         return instance.post(url, params, { headers }).then((res) => {
             return res;
         }).catch((err) => {

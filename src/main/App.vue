@@ -22,7 +22,7 @@ export default {
     async setup() {
         const dataResource = reactive({});
         const store = useStore();
-        dataResource.ary = await store.dispatch('f01/jsonUsers')
+        dataResource.ary = await store.dispatch('f01/jsonUsers');
         return {
             dataResource
         }
