@@ -56,6 +56,9 @@ function mutiple(name) {
         },
         plugins: [
             new VueLoaderPlugin(),
+            new webpack.DefinePlugin({
+                'process.env': process.env.NODE_ENV === 'sit' ? require('./src/commonJs/envConfig/sit') : require('./src/commonJs/envConfig/local')
+            }),
             // 以下是解法。原因:目前使用vue3會報錯
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: JSON.stringify(true),

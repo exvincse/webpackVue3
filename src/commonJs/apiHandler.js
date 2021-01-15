@@ -1,7 +1,8 @@
 "use strict";
 import Axios from "axios";
 const instance = Axios.create({
-    baseURL: '',
+    // baseURL: '',
+    baseURL: process.env.apiBaseUrl,
     timeout: 0,
     withCredentials: true
 });
@@ -9,7 +10,7 @@ const instance = Axios.create({
 let Api = {
     token: '',
     setToken: function (name) {
-        this.token = name;
+        this.token = name || '';
     },
     config: (config = {}) => {
         let headers = {};
@@ -27,6 +28,7 @@ let Api = {
     },
     post: (url, params) => {
         let headers = Api.config();
+        console.log(process.env.apiBaseUrl);
         return instance.post(url, params, { headers }).then((res) => {
             return res;
         }).catch((err) => {
