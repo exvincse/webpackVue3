@@ -1,4 +1,22 @@
+// {
+//     "presets": ["es2015", "stage-0"],
+//     "plugins": ["syntax-dynamic-import", "transform-regenerator"]
+// }
+
 {
-    "presets": ["es2015", "stage-0"],
-    "plugins": ["syntax-dynamic-import", "transform-regenerator"]
-}
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "modules": false,
+          "targets": {
+            "browsers": "last 2 versions, not ie <= 9"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import"
+    ]
+  }
