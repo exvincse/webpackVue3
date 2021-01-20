@@ -46,12 +46,6 @@ function mutiple(name) {
                 {
                     test: /\.vue$/,
                     loader: "vue-loader",
-                    // use: {
-                    //     loader: 'babel-loader',
-                    //     options: {
-                    //       presets: ['@babel/preset-env']
-                    //     }
-                    // }
                 },
                 {
                     test: /\.js$/,

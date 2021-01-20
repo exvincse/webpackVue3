@@ -1,16 +1,17 @@
 <template>
-    <div>App: f01/index</div>
-    <a href="/about.html">about.html</a>
-    <div>{{ dataResource.ary[0] }}</div>
+    <!-- <div>App: f01/index</div> -->
+    <div class="count">{{ props.count }}</div>
 </template>
 <script>
     import { onMounted, onBeforeMount, reactive } from "vue";
     import { useStore } from 'vuex';
     export default {
         components: {},
-        async setup() {
-            const store = useStore();
-            const dataResource = reactive({});
+        setup(props) {
+            // const store = useStore();
+            const dataResource = reactive({
+                count: 0
+            });
             let params = {
                 body: {
                     title: 'foo',
@@ -18,9 +19,10 @@
                     userId: 1,
                 }
             }
-            dataResource.ary = await store.dispatch('f02/jsonPosts', params);
+            // dataResource.ary = await store.dispatch('f02/jsonPosts', params);
             return {
-                dataResource
+                // dataResource
+                props
             }
         }
     };
