@@ -28,7 +28,6 @@ let Api = {
     },
     post: (url, params) => {
         let headers = Api.config();
-        console.log(process.env.apiBaseUrl);
         return instance.post(url, params, { headers }).then((res) => {
             return res;
         }).catch((err) => {
@@ -50,14 +49,18 @@ let Api = {
             console.log(err);
         });
     },
-    get: (url, params) => {
-        console.log(Api.config())
-        return instance.get(url, params).then(res => {
-            
+    // get: (url) => {
+    //     // console.log(Api.config())
+    //     return instance.get(url).then(res => {
+    //         return res;
+    //     }).catch(err => {
+    //         return err;
+    //     });
+    // },
+    get: (url) => {
+        return instance.get(url).then(res => {
             return res;
-        }).catch(err => {
-            return err;
-        });
+        })
     },
     all: (url) => {
         return Axios.all(url).then((res) => {

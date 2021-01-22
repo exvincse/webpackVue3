@@ -62,7 +62,7 @@ module.exports = [app, app1].map(item => merge(item, {
     },
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.esm-browser.prod.js'
+            vue: 'vue/dist/vue.min.js'
         }
     },
     plugins: [

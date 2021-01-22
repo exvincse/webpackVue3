@@ -1,35 +1,12 @@
-import { createApp, defineAsyncComponent } from "vue";
 import router from "./router";
-import { store } from "./store/index";
+import store from "./store/index";
 import "./content/scss/all.scss";
-import vuePlugin from "./content/js/vuePlugin";
-import Api from "../commonJs/apiHandler";
+import App from './App1.vue';
 
-const app = createApp({
-    components: {
-        App: defineAsyncComponent(
-            async () => {
-                await new Promise((resolve, reject) => {
-                    return setTimeout(() => {
-                        resolve();
-                        Api.setToken('1BNODXICQRB7OPMCG491');
-                    }, 1000)
-                });
-                return import(/* webpackChunkName: 'App' */ './App1.vue');
-            }
-        )
-    },
-    template: `
-        <Suspense>
-            <template #default>
-                <App />
-            </template>
-            <template #fallback>
-                loading...
-            </template>
-        </Suspense>
-    `
-});
+import Vue from 'vue';
 
-app.use(router).use(store).use(vuePlugin);
-app.mount("#app1");
+let app = new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app')

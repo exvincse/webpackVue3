@@ -8,10 +8,12 @@
       [
         "@babel/preset-env",
         {
-          "useBuiltIns": "usage",
-          "modules": false,
+          // "useBuiltIns": "usage",
+          // "corejs": "3", // 声明corejs版本
+          // "modules": "auto",
           "targets": {
-            "browsers": "last 2 versions, not ie <= 9"
+            // "browsers": "last 2 versions, not ie <= 9",
+            "node": "current"
           }
         }
       ]

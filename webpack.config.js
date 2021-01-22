@@ -46,12 +46,6 @@ function mutiple(name) {
                 {
                     test: /\.vue$/,
                     loader: "vue-loader",
-                    // use: {
-                    //     loader: 'babel-loader',
-                    //     options: {
-                    //       presets: ['@babel/preset-env']
-                    //     }
-                    // }
                 },
                 {
                     test: /\.js$/,
@@ -69,11 +63,6 @@ function mutiple(name) {
             new VueLoaderPlugin(),
             new webpack.DefinePlugin({
                 'process.env': process.env.NODE_ENV === 'sit' ? require('./src/commonJs/envConfig/sit') : require('./src/commonJs/envConfig/local')
-            }),
-            // 以下是解法。原因:目前使用vue3會報錯
-            new webpack.DefinePlugin({
-                __VUE_OPTIONS_API__: JSON.stringify(true),
-                __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
             })
         ]
     }

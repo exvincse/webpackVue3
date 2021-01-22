@@ -67,7 +67,7 @@ const devWebpackConfig = [app, app1].map(item => merge(item, {
     },
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.esm-browser.js'
+            vue: 'vue/dist/vue.js'
         }
     },
     plugins: [

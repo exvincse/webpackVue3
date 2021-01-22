@@ -1,28 +1,33 @@
 <template>
-    <div>App: f01/index</div>
-    <a href="/about.html">about.html</a>
-    <div>{{ dataResource.ary[0] }}</div>
+    <div>
+        <!-- <div>App text start</div>
+        <div>{{ counta }}</div>
+        <div class="bbb">{{ bbb }}</div> -->
+        <div v-for="(item, index) in ary" :key="index">
+            <span class="test">{{ item.name }}</span>
+        </div>
+        <button class="aaaaa" @click="addcount()">button</button>
+    </div>
 </template>
 <script>
-    import { onMounted, onBeforeMount, reactive } from "vue";
-    import { useStore } from 'vuex';
-    export default {
-        components: {},
-        async setup() {
-            const store = useStore();
-            const dataResource = reactive({});
-            let params = {
-                body: {
-                    title: 'foo',
-                    body: 'bar',
-                    userId: 1,
-                }
-            }
-            dataResource.ary = await store.dispatch('f02/jsonPosts', params);
-            return {
-                dataResource
-            }
+import Axios from "axios";
+import repor from "../../../main/repository/index"
+export default {
+    // props: ['count'],
+    data() {
+        return {
+            ary: []
         }
-    };
+    },
+    methods: {
+        async addcount() {
+            // let res = await this.$store.dispatch('f01/jsonUsers');
+            // this.ary = res;
+
+            let res = await repor.f01.jsonUsers();
+            this.ary = res
+            console.log(this.ary, res);
+        }
+    }
+}
 </script>
-<style lang="scss"></style>
