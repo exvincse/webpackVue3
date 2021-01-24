@@ -13,10 +13,10 @@ const mutations = {
 }
 
 const actions = {
-    async jsonUsers({ commit }) {
+    async jsonUsers() {
         let res = await api.f01.jsonUsers();
-        commit('setJsonUsers', res.data);
-        return res.data;
+        commit('setJsonUsers', res);
+        return res;
     },
 }
 
