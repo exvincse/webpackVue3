@@ -8,12 +8,12 @@ const getters = {}
 
 const mutations = {
     setJsonUsers(state, payload) {
-        state.data = payload || [];
+        state.jsonUsersData = payload || [];
     }
 }
 
 const actions = {
-    async jsonUsers() {
+    async jsonUsers({ commit }) {
         let res = await api.f01.jsonUsers();
         commit('setJsonUsers', res);
         return res;

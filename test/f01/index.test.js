@@ -1,10 +1,9 @@
 
-import Vuex from 'vuex'
-import { mount, shallowMount, createLocalVue } from '@vue/test-utils';
+import Vuex from 'vuex';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import f01 from '../../src/main/store/modules/f01';
-import store from '../../src/main/store/index';
 import index from '../../src/main/component/f01/index.vue';
-import flushPromises from 'flush-promises'
+import flushPromises from 'flush-promises';
 const localVue = createLocalVue()
 localVue.use(Vuex)
 let promise = (params = {}) => Promise.resolve(params);
@@ -44,6 +43,7 @@ describe('AsyncButton', () => {
       modules: {
         f01: {
           state: state,
+          mutations: f01.mutations,
           actions: actions,
           namespaced: true
         }
@@ -51,13 +51,14 @@ describe('AsyncButton', () => {
     })
   })
 
-  it('fetches async when a button is clicked', async (done) => {
+  it('測試vuex資料', async () => {
     let wrapper = shallowMount(index, { store, localVue })
     await wrapper.find('button').trigger('click');
     await flushPromises();
-    wrapper.vm.$nextTick(async () => {
-      await expect(wrapper.vm.ary.length).toBe(2);
-      done()
+    store.commit('f01/setJsonUsers', [1,3]);
+    wrapper.vm.$nextTick(() => {
+      expect(store.state.f01.jsonUsersData.length).toBe(2);
+      // console.log(wrapper.get('.test').text())
     })
   })
 })
