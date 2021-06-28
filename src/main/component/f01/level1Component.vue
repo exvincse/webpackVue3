@@ -2,7 +2,7 @@
 <template>
     <div>
         <button class="addData" @click="addData()">getData</button>
-        <button class="removeData" @click="removeData()">removeData</button>
+        <button class="childremoveData" @click="removeData()">removeData</button>
         <!-- <level2-component v-bind="$attrs" v-on="$lis。level2value="level2value"></level2-component> -->
     </div>
 </template>
@@ -37,9 +37,8 @@ export default {
             
         },
         removeData() {
-            let ary = [...this.ary];
-            ary.splice(0,1);
-            this.$emit('updateData', ary)
+            this.ary.splice(0,1);
+            this.$emit('updateData', this.ary)
         }
     }
 };
