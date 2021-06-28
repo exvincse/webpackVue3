@@ -18,6 +18,10 @@ const actions = {
         commit('setJsonUsers', res.data);
         return res.data;
     },
+    async test({ commit }, params) {
+        let res = await api.f01.test(params);
+        return res;
+    }
 }
 
 export default {

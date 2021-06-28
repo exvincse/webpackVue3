@@ -64,7 +64,6 @@ function mutiple(name) {
             new webpack.DefinePlugin({
                 'process.env': process.env.NODE_ENV === 'sit' ? require('./src/commonJs/envConfig/sit') : require('./src/commonJs/envConfig/local')
             }),
-            // 以下是解法。原因:目前使用vue3會報錯
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: JSON.stringify(true),
                 __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
@@ -82,25 +81,3 @@ module.exports = entryNameAry.map(item => {
     }
     return result;
 });
-
-// module.exports = ['main', 'main1'].map(item => {
-//     let result = mutiple(item);
-//     if (process.env.NODE_ENV === "production") {
-//         // 生產版本設定
-//         result.output.filename = `${result.name}/js/[name].[contenthash].js`;
-//         result.plugins.push(
-//             new MiniCssExtractPlugin({
-//                 filename: `${result.name}/css/[name].[contenthash].css`
-//             })
-//         );
-//     } else {
-//         // 開發版本設定
-//         result.output.filename = `${result.name}/js/[name].js`;
-//         result.plugins.push(
-//             new MiniCssExtractPlugin({
-//                 filename: `${result.name}/css/[name].css`
-//             })
-//         );
-//     }
-//     return result;
-// });

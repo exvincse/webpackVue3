@@ -1,8 +1,8 @@
 "use strict";
 import Axios from "axios";
 const instance = Axios.create({
-    // baseURL: '',
-    baseURL: process.env.apiBaseUrl,
+    baseURL: 'https://api-test123456789.azure-api.net/echo/',
+    // baseURL: process.env.apiBaseUrl,
     timeout: 0,
     withCredentials: true
 });
@@ -14,10 +14,10 @@ let Api = {
     },
     config: (config = {}) => {
         let headers = {};
-        headers['X-CSRF-TOKEN'] = Api.token;
-        if (config.hasOwnProperty("contentType")) {
-            headers["content-Type"] = config.contentType;
-        }
+        headers['Ocp-Apim-Subscription-Key'] = '311e8b8637e34087a86aab446e9420b0';
+        // if (config.hasOwnProperty("contentType")) {
+        //     headers["content-Type"] = config.contentType;
+        // }
 
         // if (config.hasOwnProperty("responseType")) {
         //     headers["response-Type"] = config.responseType;
@@ -51,9 +51,8 @@ let Api = {
         });
     },
     get: (url, params) => {
-        console.log(Api.config())
-        return instance.get(url, params).then(res => {
-            
+        let setting = Api.config();
+        return instance.get(url, params, setting).then(res => {
             return res;
         }).catch(err => {
             return err;

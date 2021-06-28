@@ -4,33 +4,20 @@ import { store } from "./store/index";
 import "./content/scss/all.scss";
 import vuePlugin from "./content/js/vuePlugin";
 import Api from "../commonJs/apiHandler";
-import App from './App.vue';
-
-// const app = createApp({
-//     components: {
-//         App: defineAsyncComponent(
-//             async () => {
-//                 await new Promise((resolve, reject) => {
-//                     return setTimeout(() => {
-//                         resolve();
-//                         Api.setToken('1BNODXICQRB7OPMCG491');
-//                     }, 1000)
-//                 });
-//                 return import(/* webpackChunkName: 'App' */ './App.vue');
-//             }
-//         )
-//     },
-//     template: `
-//         <Suspense>
-//             <template #default>
-//                 <App />
-//             </template>
-//             <template #fallback>
-//                 loading...
-//             </template>
-//         </Suspense>
-//     `
-// });
-const app = createApp(App)
+const app = createApp({
+    components: {
+        App: defineAsyncComponent(() => import(/* webpackChunkName: 'App' */ './App.vue'))
+    },
+    template: `
+        <Suspense>
+            <template #default>
+                <App />
+            </template>
+            <template #fallback>
+                loading...
+            </template>
+        </Suspense>
+    `
+});
 app.use(router).use(store).use(vuePlugin);
 app.mount("#app");
