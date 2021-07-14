@@ -6,7 +6,8 @@
         <button class="getData" @click="getData()">getData</button>
         <button class="removeData" @click="removeData()">removeData</button>
         <level1-component :ary="ary" @updateData="updateData"></level1-component> -->
-        <p class="decode-result">Last result: <b>{{ result }}</b></p>
+        <!-- <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
+        <a :href="result">{{ result }}</a>
        <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused"></qrcode-stream>
     </div>
 </template>
@@ -56,7 +57,6 @@ export default {
         redeem (content) {
             return new Promise((resolve, reject) => {
                 if (content) { 
-                    window.open(content, '_blank');
                     resolve('Success'); 
                 } else { 
                     reject('failed'); 
