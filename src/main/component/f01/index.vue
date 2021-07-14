@@ -6,7 +6,7 @@
         <button class="getData" @click="getData()">getData</button>
         <button class="removeData" @click="removeData()">removeData</button>
         <level1-component :ary="ary" @updateData="updateData"></level1-component> -->
-       <qrcode-stream @decode="onDecode" @init="onInit"></qrcode-stream>
+       <qrcode-stream @decode="onDecode" @init="onInit" :track="false"></qrcode-stream>
     </div>
 </template>
 <script>
@@ -33,6 +33,7 @@ export default {
         },
         onDecode(url) {
             // window.location.href = url
+
             console.log(url)
         },
         async onDetect (promise) {
