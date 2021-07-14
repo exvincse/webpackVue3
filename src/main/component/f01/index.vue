@@ -7,7 +7,7 @@
         <button class="removeData" @click="removeData()">removeData</button>
         <level1-component :ary="ary" @updateData="updateData"></level1-component> -->
         <!-- <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
-        <a href="https://exvincse.github.io/webpackVue3/dist/#/">https://exvincse.github.io/webpackVue3/dist/#/</a>
+        <a href="https://www.google.com/">https://www.google.com/</a>
         <span>分隔線-----------</span>
         <a :href="result">{{ result }}</a>
        <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused"></qrcode-stream>
