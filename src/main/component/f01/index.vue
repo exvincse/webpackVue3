@@ -35,7 +35,9 @@ export default {
         },
         onDecode(url) {
             this.result = url;
-            window.open(url, '_blank');
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 1000)
         },
         async onDetect (promise) {
             try {
