@@ -35,7 +35,7 @@ export default {
         },
         onDecode(url) {
             this.result = url;
-            // window.location.href = url;
+            window.open(url, '_blank');
         },
         async onDetect (promise) {
             try {
