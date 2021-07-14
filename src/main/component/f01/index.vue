@@ -7,7 +7,7 @@
         <button class="removeData" @click="removeData()">removeData</button>
         <level1-component :ary="ary" @updateData="updateData"></level1-component> -->
         <p class="decode-result">Last result: <b>{{ result }}</b></p>
-       <qrcode-stream @decode="onDecode" @init="onInit" :track="true" :paused="paused"></qrcode-stream>
+       <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused"></qrcode-stream>
     </div>
 </template>
 <script>
@@ -30,6 +30,7 @@ export default {
         async onInit (promise) {
             try {
                 const { capabilities } = await promise;
+                console.log(capabilities)
             } catch (error) {
             
             }
@@ -41,12 +42,11 @@ export default {
         },
         onCameraChange (promise) {
             promise.catch(error => {
-            const cameraMissingError = error.name === 'OverconstrainedError'
-            const triedFrontCamera = this.camera === 'front'
-
-            if (triedFrontCamera && cameraMissingError) {
-                // no front camera on this device
-            }
+                const cameraMissingError = error.name === 'OverconstrainedError'
+                const triedFrontCamera = this.camera === 'front'
+                if (triedFrontCamera && cameraMissingError) {
+                    // no front camera on this device
+                }
             })
         }
     }
