@@ -34,10 +34,15 @@ export default {
             
             }
         },
-        onDecode(url) {
-            // this.result = url;
-            // this.paused = true;
-            window.open("https://www.google.com/")
+        async onDecode(url) {
+            try {
+                this.result = url;
+                this.paused = true;
+                await this.redeem(url);
+                this.paused = false;
+            } catch (error) {
+                
+            }
         },
         onCameraChange (promise) {
             promise.catch(error => {
@@ -45,6 +50,16 @@ export default {
                 const triedFrontCamera = this.camera === 'front'
                 if (triedFrontCamera && cameraMissingError) {
                     // no front camera on this device
+                }
+            })
+        },
+        redeem (content) {
+            return new Promise((resolve, reject) => {
+                if (content) { 
+                    window.open(content, '_blank');
+                    resolve('Success'); 
+                } else { 
+                    reject('failed'); 
                 }
             })
         }
