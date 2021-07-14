@@ -6,6 +6,7 @@
         <button class="getData" @click="getData()">getData</button>
         <button class="removeData" @click="removeData()">removeData</button>
         <level1-component :ary="ary" @updateData="updateData"></level1-component> -->
+        <p class="decode-result">Last result: <b>{{ result }}</b></p>
        <qrcode-stream @decode="onDecode" @init="onInit" :track="true"></qrcode-stream>
     </div>
 </template>
@@ -18,6 +19,7 @@ export default {
     },
     data () {
         return {
+            result: '',
             camera: 'auto',
             torch: true
         }
@@ -32,7 +34,8 @@ export default {
             }
         },
         onDecode(url) {
-            window.location.href = url;
+            this.result = url;
+            // window.location.href = url;
         },
         async onDetect (promise) {
             try {
