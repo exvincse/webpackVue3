@@ -8,7 +8,7 @@
         <level1-component :ary="ary" @updateData="updateData"></level1-component> -->
         <!-- <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
         <a href="https://www.google.com/">https://www.google.com/</a>
-        <span>分隔線-----------</span>
+        <div>分隔線-----------</div>
         <a :href="result">{{ result }}</a>
        <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused"></qrcode-stream>
     </div>
@@ -43,6 +43,7 @@ export default {
                 this.paused = true;
                 await this.redeem(url);
                 this.paused = false;
+                window.open(url);
             } catch (error) {
                 
             }
@@ -53,15 +54,6 @@ export default {
                 const triedFrontCamera = this.camera === 'front'
                 if (triedFrontCamera && cameraMissingError) {
                     // no front camera on this device
-                }
-            })
-        },
-        redeem (content) {
-            return new Promise((resolve, reject) => {
-                if (content) { 
-                    resolve('Success'); 
-                } else { 
-                    reject('failed'); 
                 }
             })
         }
