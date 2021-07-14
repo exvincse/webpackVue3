@@ -32,10 +32,10 @@ export default {
             try {
                 this.content = content;
                 this.pauseCamera(); // 暫停鏡頭準備調用
-                let message = await this.redeem(content);
+                await this.redeem(content);
                 setTimeout(() => {
                     this.unPauseCamera();
-                    window.open(this.content)
+                    this.test();
                 }, 2000);
             } catch (error) {
                 setTimeout(() => {
