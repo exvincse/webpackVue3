@@ -1,5 +1,6 @@
 <template>
     <div>
+        <button @click="test()">test</button>
        <qrcode-stream
         @decode="onDecode"
         @init="onInit"
@@ -34,7 +35,7 @@ export default {
                 let message = await this.redeem(content);
                 setTimeout(() => {
                     this.unPauseCamera();
-                    window.open(content)
+                    window.open(this.content)
                 }, 2000);
             } catch (error) {
                 setTimeout(() => {
@@ -57,6 +58,9 @@ export default {
                     reject('failed'); 
                 }
             })
+        },
+        test() {
+            window.open(this.content)
         }
     }
 }
