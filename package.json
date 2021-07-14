@@ -66,7 +66,7 @@
         "jest": "jest",
         "jest.report": "jest --collectCoverage",
         "build": "cross-env NODE_ENV=production webpack --progress --config webpack.prod.js",
-        "start": "cross-env NODE_ENV=development webpack-dev-server --progress --config webpack.dev.js",
+        "start": "cross-env NODE_ENV=development webpack-dev-server --host 0.0.0.0 --progress --config webpack.dev.js",
         "sit": "cross-env NODE_ENV=sit webpack-dev-server --progress --config webpack.dev.js"
     },
     "author": "",
