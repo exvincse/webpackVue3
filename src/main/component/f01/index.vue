@@ -1,30 +1,20 @@
 <template>
     <div>
-        <!-- <div v-for="(item, index) in ary" :key="index">
-            <span class="test">{{ item }}</span>
-        </div>
-        <button class="getData" @click="getData()">getData</button>
-        <button class="removeData" @click="removeData()">removeData</button>
-        <level1-component :ary="ary" @updateData="updateData"></level1-component> -->
-        <!-- <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
-        <a href="https://www.google.com/">https://www.google.com/</a>
-        <div>分隔線-----------</div>
-        <a :href="result">{{ result }}</a>
-       <qrcode-stream @decode="onDecode" @init="onInit" :paused="paused"></qrcode-stream>
+       <qrcode-stream
+        @decode="onDecode"
+        @init="onInit"
+        :camera="cameraSettings"
+        :paused="paused"
+        ></qrcode-stream>
     </div>
 </template>
 <script>
-import { mapState } from 'vuex';
-import level1Component from './level1Component';
 export default {
     components: {
-        level1Component,
     },
-    data () {
+    data() {
         return {
-            result: '',
-            camera: 'auto',
-            torch: true,
+            cameraSettings: 'auto',
             paused: false
         }
     },
@@ -34,26 +24,37 @@ export default {
             try {
                 const { capabilities } = await promise;
             } catch (error) {
-            
+                console.log(error)
             }
         },
-        async onDecode(url) {
+        async onDecode (content) {
             try {
-                this.result = url;
-                this.paused = true;
-                await this.redeem(url);
-                this.paused = false;
-                window.open(url);
+                this.content = content;
+                this.pauseCamera(); // 暫停鏡頭準備調用
+                let message = await this.redeem(content);
+                setTimeout(() => {
+                    this.unPauseCamera();
+                    window.open(content)
+                }, 2000);
             } catch (error) {
-                
+                setTimeout(() => {
+                    this.unPauseCamera()
+                }, 2000);
             }
         },
-        onCameraChange (promise) {
-            promise.catch(error => {
-                const cameraMissingError = error.name === 'OverconstrainedError'
-                const triedFrontCamera = this.camera === 'front'
-                if (triedFrontCamera && cameraMissingError) {
-                    // no front camera on this device
+        pauseCamera () {
+            this.paused = true
+        },
+        unPauseCamera () {
+            this.paused = false
+        },
+        redeem (content) {
+            return new Promise((resolve, reject) => {
+                // 兌換票券請求
+                if (content) { 
+                    resolve('Success'); 
+                } else { 
+                    reject('failed'); 
                 }
             })
         }
