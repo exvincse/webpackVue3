@@ -30,21 +30,14 @@ export default {
         async onInit (promise) {
             try {
                 const { capabilities } = await promise;
-                console.log(capabilities)
             } catch (error) {
             
             }
         },
-        async onDecode(url) {
-            try {
-                this.result = url;
-                this.paused = true;
-        
-                await this.redeem(content);
-
-            } catch (error) {
-                
-            }
+        onDecode(url) {
+            // this.result = url;
+            // this.paused = true;
+            window.open("https://www.google.com/")
         },
         onCameraChange (promise) {
             promise.catch(error => {
@@ -52,16 +45,6 @@ export default {
                 const triedFrontCamera = this.camera === 'front'
                 if (triedFrontCamera && cameraMissingError) {
                     // no front camera on this device
-                }
-            })
-        },
-        redeem (content) {
-            return new Promise((resolve, reject) => {
-                if (content) { 
-                    window.open(url, '_blank');
-                    resolve('Success'); 
-                } else { 
-                    reject('failed'); 
                 }
             })
         }
