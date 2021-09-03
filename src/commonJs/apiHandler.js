@@ -1,10 +1,10 @@
 "use strict";
 import Axios from "axios";
 const instance = Axios.create({
-    baseURL: 'https://api-test123456789.azure-api.net/echo/',
+    baseURL: 'https://606bd286f8678400172e69cc.mockapi.io/api/v1',
     // baseURL: process.env.apiBaseUrl,
     timeout: 0,
-    withCredentials: true
+    // withCredentials: true
 });
 // axios contentType default json
 let Api = {
@@ -14,7 +14,7 @@ let Api = {
     },
     config: (config = {}) => {
         let headers = {};
-        headers['Ocp-Apim-Subscription-Key'] = '311e8b8637e34087a86aab446e9420b0';
+        // headers['Ocp-Apim-Subscription-Key'] = '311e8b8637e34087a86aab446e9420b0';
         // if (config.hasOwnProperty("contentType")) {
         //     headers["content-Type"] = config.contentType;
         // }

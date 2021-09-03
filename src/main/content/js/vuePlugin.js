@@ -2,7 +2,9 @@ import filters from './filter';
 
 let plugin = {
     install: (app, options) => {
-        app.config.globalProperties.$filters = filters;
+        const App = app.config.globalProperties;
+        App.$filters = filters;
+        App.$func = (params) => console.log(params);
     }
 }
 export default plugin;

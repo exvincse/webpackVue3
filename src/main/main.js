@@ -3,7 +3,7 @@ import router from "./router";
 import { store } from "./store/index";
 import "./content/scss/all.scss";
 import vuePlugin from "./content/js/vuePlugin";
-import Api from "../commonJs/apiHandler";
+
 const app = createApp({
     components: {
         App: defineAsyncComponent(() => import(/* webpackChunkName: 'App' */ './App.vue'))

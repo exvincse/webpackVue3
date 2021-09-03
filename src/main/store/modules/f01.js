@@ -18,6 +18,10 @@ const actions = {
         commit('setJsonUsers', res.data);
         return res.data;
     },
+    setJsonUsers({ commit }, params) {
+        console.log(params);
+        commit('setJsonUsers', params);
+    },
     async test({ commit }, params) {
         let res = await api.f01.test(params);
         return res;
